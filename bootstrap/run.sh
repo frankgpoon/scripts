@@ -17,25 +17,26 @@ installDependencies() {
   echo "Installing dependencies..."
 
   # Setup git
-  apt install -yq git
+  apt-get install -yqq git
   echo "🎉 Installed git"
 
   # Setup Python 3
-  apt install -yq python3 python3-pip
+  apt-get install -yqq python3 python3-pip
 
   echo "🎉 Installed Python and Pip"
 
   # Setup Node LTS https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh
   NODE_LTS_PPA="https://deb.nodesource.com/setup_lts.x"
-  curl -sL $NODE_LTS_PPA | bash - && apt install -yq nodejs npm
+  curl -sL $NODE_LTS_PPA | bash - > /dev/null 
+  apt-get install -yqq nodejs npm
 
   echo "🎉 Installed Node.js and NPM"
 
-  apt install -yq neovim  
+  apt-get install -yqq neovim
 
   # Final update/upgrade
-  apt update
-  apt upgrade -yq
+  apt-get update -yqq
+  apt-get upgrade -yqq
 
   echo "✅ Done installing"
 }
@@ -97,7 +98,7 @@ createGithubSshKey() {
   public_key_path="$ssh_path/$KEY_FILENAME.pub"
   config_path="$ssh_path/config"
 
-  ssh-keygen -t ed25519 -C "$KEY_FILENAME" -P "" -f "$private_key_path"
+  ssh-keygen -q -t ed25519 -C "$KEY_FILENAME" -P "" -f "$private_key_path"
   {
     echo "# Github SSH key"
     echo "Host github.com"
@@ -116,8 +117,9 @@ setupUpdater() {
   echo "Setting up auto-update directory and infrastructure for $username..."
   install_dir="/home/$username/.frankpoon"
   update_scripts_dir="$install_dir/update_scripts"
-  source_dir=${0%/*}
+  source_dir=$(dirname "$0")
 
+  mkdir "$install_dir"
   mkdir "$update_scripts_dir"
   cp "$source_dir/update_all.sh" "$install_dir"
   echo "🎉 Created directories. You can put new update scripts under ~/.frankpoon/update_scripts."

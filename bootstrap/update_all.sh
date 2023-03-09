@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_dir="/home/$USERNAME/.frankpoon"
+install_dir="/home/$USER/.frankpoon"
 update_scripts_dir="$install_dir/update_scripts"
 
 
