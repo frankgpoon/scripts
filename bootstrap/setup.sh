@@ -15,6 +15,7 @@ main() {
   setupUserAccount $USERNAME
   addClientSshKey $USERNAME
   createGithubSshKey $USERNAME
+  setupEnv $USERNAME
   setupUpdater $USERNAME
 }
 
@@ -130,12 +131,16 @@ createGithubSshKey() {
 }
 
 setupEnv() {
+  username=$1
+
+  echo "Setting up environment for $username..."
   mkdir "$INSTALL_DIR"
   mkdir "$UPDATE_SCRIPTS_DIR"
   mkdir "$REPO_DIR"
   mkdir "$CONFIG_DIR"
 
   chown -R "$username" "$INSTALL_DIR"
+  echo "✅ Finished setting up environment for $username..."
 }
 
 setupUpdater() {
@@ -147,7 +152,7 @@ setupUpdater() {
   
   cp "$source_dir/update_all.sh" "$INSTALL_DIR"
   chown "$username" "$INSTALL_DIR/update_all.sh"
-  echo "🎉 Created directories. You can put new update scripts under  UPDATE_SCRIPTS_DIR."
+  echo "✅ Created directories. You can put new update scripts under  UPDATE_SCRIPTS_DIR."
 
   (crontab -lu "$username"; echo "0 0 * * 0 $INSTALL_DIR/update_all.sh") | sort -u | crontab -u "$username" -
 }
