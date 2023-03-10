@@ -1,4 +1,5 @@
-frankpoon.com {
+localhost, frankpoon.com {
+	encode zstd gzip
 	root * /home/frank/webroot
 	file_server
 }
@@ -6,4 +7,3 @@ frankpoon.com {
 www.frankpoon.com {
 	redir https://frankpoon.com{uri}
 }
-
