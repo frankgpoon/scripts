@@ -47,7 +47,7 @@ installCaddy() {
   sudo apt-get install -yqq caddy
 
   sudo setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/caddy
-  caddy run --config "$CONFIG_DIR/Caddyfile"
+  caddy start --config "$CONFIG_DIR/Caddyfile"
 }
 
 setupUpdates() {
