@@ -1,0 +1,9 @@
+localhost, frankpoon.com {
+	root * /home/frank/webroot
+	file_server
+}
+
+www.frankpoon.com {
+	redir https://frankpoon.com{uri}
+}
+

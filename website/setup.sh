@@ -9,10 +9,13 @@ FSB_REPO_URL="git@github.com:frankgpoon/$FSB_REPO_NAME.git"
 REPO_DIR="/home/$USER/repos"
 WEBROOT_DIR="/home/$USER/webroot"
 
+INSTALL_DIR="/home/$USER/.frankpoon"
+CONFIG_DIR="$INSTALL_DIR/config"
+
 main() {
   setupStaticFiles
-  installCaddy
   setupUpdates
+  installCaddy
 }
 
 
@@ -43,12 +46,13 @@ installCaddy() {
   sudo apt-get -qq update
   sudo apt-get install -yqq caddy
 
-  sudo caddy file-server --root "$WEBROOT_DIR"
+  sudo setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/caddy
+  caddy run --config "$CONFIG_DIR/Caddyfile"
 }
 
 setupUpdates() {
-  install_dir="/home/$USER/.frankpoon"
-  update_scripts_dir="$install_dir/update_scripts"
+  update_scripts_dir="$INSTALL_DIR/update_scripts"
   source_dir="$(dirname "$0")/resources"
   cp "$source_dir/update.sh" "$update_scripts_dir/$SCRIPT_NAME.sh"
+  cp "$source_dir/Caddyfile" "$CONFIG_DIR/"
 }
