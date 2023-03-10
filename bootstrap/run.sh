@@ -118,7 +118,7 @@ setupUpdater() {
   echo "Setting up auto-update directory and infrastructure for $username..."
   install_dir="/home/$username/.frankpoon"
   update_scripts_dir="$install_dir/update_scripts"
-  source_dir=$(dirname "$0")
+  source_dir="$(dirname "$0")/resources"
 
   mkdir "$install_dir"
   mkdir "$update_scripts_dir"
