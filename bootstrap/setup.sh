@@ -1,7 +1,12 @@
 #!/bin/bash
 
+USERNAME="frank"
+INSTALL_DIR="/home/$USERNAME/.frankpoon"
+REPO_DIR="/$INSTALL_DIR/repos"
+UPDATE_SCRIPTS_DIR="$INSTALL_DIR/update_scripts"
+CONFIG_DIR="$INSTALL_DIR/config"
+
 main() {
-  
 
   echo "Welcome to Frank's bootstrap script!"
   echo "---------------------------------------------"
@@ -124,25 +129,27 @@ createGithubSshKey() {
   echo -e "\n$(cat "$public_key_path")\n"
 }
 
+setupEnv() {
+  mkdir "$INSTALL_DIR"
+  mkdir "$UPDATE_SCRIPTS_DIR"
+  mkdir "$REPO_DIR"
+  mkdir "$CONFIG_DIR"
+
+  chown -R "$username" "$INSTALL_DIR"
+}
+
 setupUpdater() {
   username=$1
 
   echo "Setting up auto-update directory and infrastructure for $username..."
-  install_dir="/home/$username/.frankpoon"
-  update_scripts_dir="$install_dir/update_scripts"
-  update_configs_dir="$install_dir/config"
+  
   source_dir="$(dirname "$0")/resources"
+  
+  cp "$source_dir/update_all.sh" "$INSTALL_DIR"
+  chown "$username" "$INSTALL_DIR/update_all.sh"
+  echo "🎉 Created directories. You can put new update scripts under  UPDATE_SCRIPTS_DIR."
 
-  mkdir "$install_dir"
-  mkdir "$update_scripts_dir"
-  mkdir "$update_configs_dir"
-  cp "$source_dir/update_all.sh" "$install_dir"
-  chown -R "$username" "$install_dir"
-  echo "🎉 Created directories. You can put new update scripts under $update_scripts_dir."
-
-  (crontab -lu "$username"; echo "0 0 * * 0 $install_dir/update_all.sh") | sort -u | crontab -u "$username" -
+  (crontab -lu "$username"; echo "0 0 * * 0 $INSTALL_DIR/update_all.sh") | sort -u | crontab -u "$username" -
 }
-
-USERNAME="frank"
 
 main $USERNAME
