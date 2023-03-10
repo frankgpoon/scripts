@@ -34,6 +34,10 @@ installDependencies() {
   echo "🎉 Installed Java"
 
   apt-get install -yqq neovim
+  echo "🎉 Installed neovim"
+
+  apt-get install -yqq zsh
+  echo "🎉 Installed zsh"
 
   # Final update/upgrade
   apt-get update -yqq
