@@ -6,14 +6,12 @@ WEBSITE_REPO_URL="git@github.com:frankgpoon/$WEBSITE_REPO_NAME.git"
 FSB_REPO_NAME="fsb"
 FSB_REPO_URL="git@github.com:frankgpoon/$FSB_REPO_NAME.git"
 
-
-
-INSTALL_DIR="/home/$USER/.frankpoon"
-WEBROOT_DIR="/$INSTALL_DIR/webroot"
 INSTALL_DIR="/home/$USER/.frankpoon"
 REPO_DIR="/$INSTALL_DIR/repos"
 UPDATE_SCRIPTS_DIR="$INSTALL_DIR/update_scripts"
 CONFIG_DIR="$INSTALL_DIR/config"
+
+WEBROOT_DIR="$INSTALL_DIR/webroot"
 
 main() {
   setupStaticFiles
@@ -23,21 +21,20 @@ main() {
 
 
 setupStaticFiles() {
-  mkdir "$REPO_DIR"
   mkdir "$WEBROOT_DIR"
 
   git clone $WEBSITE_REPO_URL "$REPO_DIR/$WEBSITE_REPO_NAME"
   git clone $FSB_REPO_URL "$REPO_DIR/$FSB_REPO_NAME"
   echo "🎉 Pulled website and Flashcard Study Buddy repos"
   
-  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/index.html" index.html
-  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/style.css" style.css
-  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/404.html" 404.html
-  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/resume/frank_poon_resume.pdf" resume.pdf
+  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/index.html" "$WEBROOT_DIR/index.html"
+  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/style.css" "$WEBROOT_DIR/style.css"
+  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/404.html" "$WEBROOT_DIR/404.html"
+  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/resume/frank_poon_resume.pdf" "$WEBROOT_DIR/resume.pdf"
 
   mkdir "$WEBROOT_DIR/$FSB_REPO_NAME"
-  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/fsb.html" fsb.html
-  ln -s "$REPO_DIR/$FSB_REPO_NAME/resources/privacypolicy.pdf" privacypolicy.pdf
+  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/fsb.html" "$WEBROOT_DIR/fsb.html"
+  ln -s "$REPO_DIR/$FSB_REPO_NAME/resources/privacypolicy.pdf" "$WEBROOT_DIR/privacypolicy.pdf"
   echo "🎉 Finished creating symlinks"
   echo "✅ Finished loading static files"
 }
@@ -58,3 +55,5 @@ setupUpdates() {
   cp "$source_dir/update.sh" "$UPDATE_SCRIPTS_DIR/$SCRIPT_NAME.sh"
   cp "$source_dir/Caddyfile" "$CONFIG_DIR/"
 }
+
+main
