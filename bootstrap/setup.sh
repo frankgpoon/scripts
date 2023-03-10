@@ -30,7 +30,7 @@ installDependencies() {
   apt-get install -yqq nodejs npm
   echo "🎉 Installed Node.js and NPM"
 
-  apt-get install default-jre default-jdk
+  apt-get install -yqq default-jre default-jdk
   echo "🎉 Installed Java"
 
   apt-get install -yqq neovim
