@@ -22,15 +22,16 @@ installDependencies() {
 
   # Setup Python 3
   apt-get install -yqq python3 python3-pip
-
   echo "🎉 Installed Python and Pip"
 
   # Setup Node LTS https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh
   NODE_LTS_PPA="https://deb.nodesource.com/setup_lts.x"
   curl -sL $NODE_LTS_PPA | bash - > /dev/null 
   apt-get install -yqq nodejs npm
-
   echo "🎉 Installed Node.js and NPM"
+
+  apt-get install default-jre default-jdk
+  echo "🎉 Installed Java"
 
   apt-get install -yqq neovim
 
