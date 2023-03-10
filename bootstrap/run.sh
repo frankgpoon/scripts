@@ -122,7 +122,7 @@ setupUpdater() {
   mkdir "$install_dir"
   mkdir "$update_scripts_dir"
   cp "$source_dir/update_all.sh" "$install_dir"
-  echo "🎉 Created directories. You can put new update scripts under ~/.frankpoon/update_scripts."
+  echo "🎉 Created directories. You can put new update scripts under $update_scripts_dir."
 
   (crontab -lu "$username"; echo "0 0 * * 0 $install_dir/update_all.sh") | sort -u | crontab -u "$username" -
 }
