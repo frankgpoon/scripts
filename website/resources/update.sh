@@ -11,3 +11,5 @@ main() {
 
   caddy reload --config "$CONFIG_DIR/Caddyfile"
 }
+
+main

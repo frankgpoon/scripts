@@ -1,4 +1,4 @@
-localhost, frankpoon.com {
+frankpoon.com {
 	root * /home/frank/webroot
 	file_server
 }

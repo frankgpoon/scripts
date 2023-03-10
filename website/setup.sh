@@ -6,10 +6,13 @@ WEBSITE_REPO_URL="git@github.com:frankgpoon/$WEBSITE_REPO_NAME.git"
 FSB_REPO_NAME="fsb"
 FSB_REPO_URL="git@github.com:frankgpoon/$FSB_REPO_NAME.git"
 
-REPO_DIR="/home/$USER/repos"
-WEBROOT_DIR="/home/$USER/webroot"
+
 
 INSTALL_DIR="/home/$USER/.frankpoon"
+WEBROOT_DIR="/$INSTALL_DIR/webroot"
+INSTALL_DIR="/home/$USER/.frankpoon"
+REPO_DIR="/$INSTALL_DIR/repos"
+UPDATE_SCRIPTS_DIR="$INSTALL_DIR/update_scripts"
 CONFIG_DIR="$INSTALL_DIR/config"
 
 main() {
@@ -51,8 +54,7 @@ installCaddy() {
 }
 
 setupUpdates() {
-  update_scripts_dir="$INSTALL_DIR/update_scripts"
   source_dir="$(dirname "$0")/resources"
-  cp "$source_dir/update.sh" "$update_scripts_dir/$SCRIPT_NAME.sh"
+  cp "$source_dir/update.sh" "$UPDATE_SCRIPTS_DIR/$SCRIPT_NAME.sh"
   cp "$source_dir/Caddyfile" "$CONFIG_DIR/"
 }
