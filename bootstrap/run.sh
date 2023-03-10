@@ -84,8 +84,8 @@ addClientSshKey() {
     echo -e "Add the following lines to ~/.ssh/config:\n"
     echo "Host $(hostname -I | awk '{print $1}')"
     echo "  Preferredauthentications publickey"
-    echo -e "  IdentityFile <path to your client ssh key>\n"
-
+    echo "  IdentityFile <path to your client ssh key>"
+    echo
   else
     echo "⚠️ Adding client key skipped"
   fi
