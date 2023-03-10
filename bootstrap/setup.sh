@@ -118,6 +118,8 @@ createGithubSshKey() {
   config_path="$ssh_path/config"
 
   ssh-keygen -q -t ed25519 -C "$KEY_FILENAME" -P "" -f "$private_key_path"
+  chown "$username" "$private_key_path"
+  chown "$username" "$public_key_path"
   {
     echo "# Github SSH key"
     echo "Host github.com"
