@@ -30,10 +30,14 @@ installDependencies() {
   apt-get install -yqq nodejs npm
   echo "🎉 Installed Node.js and NPM"
 
-  apt-get install default-jre default-jdk
+  apt-get install -yqq default-jre default-jdk
   echo "🎉 Installed Java"
 
   apt-get install -yqq neovim
+  echo "🎉 Installed neovim"
+
+  apt-get install -yqq zsh
+  echo "🎉 Installed zsh"
 
   # Final update/upgrade
   apt-get update -yqq
@@ -45,9 +49,10 @@ installDependencies() {
 
 setupUserAccount() {
   username=$1
+  ssh_dir="/home/$username/.ssh"
   echo "Setting up account for $username..."
   useradd -m "$username"
-  mkdir "/home/$username/.ssh"
+  mkdir "$ssh_dir"
   echo "🎉 Created user $username"
 
   while true; do
@@ -61,6 +66,8 @@ setupUserAccount() {
   done
 
   adduser "$username" sudo
+
+  chown -R "$username" "$ssh_dir"
   echo "🎉 Added sudo privilege for $username"
   echo "✅ User was successfully created"
 }
@@ -123,11 +130,14 @@ setupUpdater() {
   echo "Setting up auto-update directory and infrastructure for $username..."
   install_dir="/home/$username/.frankpoon"
   update_scripts_dir="$install_dir/update_scripts"
+  update_configs_dir="$install_dir/config"
   source_dir="$(dirname "$0")/resources"
 
   mkdir "$install_dir"
   mkdir "$update_scripts_dir"
+  mkdir "$update_configs_dir"
   cp "$source_dir/update_all.sh" "$install_dir"
+  chown -R "$username" "$install_dir"
   echo "🎉 Created directories. You can put new update scripts under $update_scripts_dir."
 
   (crontab -lu "$username"; echo "0 0 * * 0 $install_dir/update_all.sh") | sort -u | crontab -u "$username" -
