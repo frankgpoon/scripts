@@ -14,8 +14,8 @@ main() {
   echo "---------------------------------------------"
 
   setupEnv
-  addClientSshKey
-  createGithubSshKey
+  setupClientSshKey
+  setupGithubSshKey
   setupUpdater
 }
 
@@ -44,7 +44,7 @@ setupClientSshKey() {
   fi
 }
 
-createGithubSshKey() {
+setupGithubSshKey() {
   echo "Setting up Github SSH key..."
 
   KEY_FILENAME="github"
@@ -67,8 +67,10 @@ createGithubSshKey() {
 }
 
 setupEnv() {
-
   echo "Setting up environment for $USER..."
+
+  chsh -s /usr/bin/bash
+
   mkdir "$INSTALL_DIR"
   mkdir "$UPDATE_SCRIPTS_DIR"
   mkdir "$REPO_DIR"
@@ -87,7 +89,7 @@ setupUpdater() {
   cp "$source_dir/update_all.sh" "$INSTALL_DIR"
   echo "✅ Created directories. You can put new update scripts under $UPDATE_SCRIPTS_DIR."
 
-  (crontab -lu; echo "0 0 * * 0 $INSTALL_DIR/update_all.sh") | sort -u | crontab -
+  (crontab -l; echo "0 0 * * 0 $INSTALL_DIR/update_all.sh") | sort -u | crontab -
 }
 
 main

@@ -36,11 +36,11 @@ setupUserAccount() {
   adduser "$username" sudo
 
   echo "🎉 Added sudo privilege for $username"
-
-  source_dir=$(dirname "$(dirname "$0")")
+  
+  source_dir=$(dirname "$(dirname "$(realpath "$0")")")
   dest_dir="/home/$username/"
   cp -R "$source_dir" "$dest_dir"
-  chown "$username" "$dest_dir/$(basename "$source_dir")"
+  chown -R "$username" "$dest_dir/$(basename "$source_dir")"
 
 
   echo "✅ User was successfully created"
