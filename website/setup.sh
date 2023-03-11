@@ -54,7 +54,7 @@ setupStaticFiles() {
   ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/404.html" "$webroot_dir/404.html"
   ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/resume/frank_poon_resume.pdf" "$webroot_dir/resume.pdf"
 
-  mkdir "$WEBROOT_DIR/$FSB_REPO_NAME"
+  mkdir "$webroot_dir/$FSB_REPO_NAME"
   ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/fsb.html" "$webroot_dir/fsb.html"
   ln -s "$REPO_DIR/$FSB_REPO_NAME/resources/privacypolicy.pdf" "$webroot_dir/privacypolicy.pdf"
   echo "🎉 Finished creating symlinks"
