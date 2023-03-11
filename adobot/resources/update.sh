@@ -1,12 +1,12 @@
 #!/bin/bash
 
-REPO_NAME="adobot"
+NAMESPACE="adobot"
 REPO_DIR="/home/$USER/repos"
 
 main() {
-  git -C "$REPO_DIR/$REPO_NAME" pull
+  git -C "$REPO_DIR/$NAMESPACE" pull
 
-  pm2 restart $REPO_NAME
+  pm2 restart $NAMESPACE
 }
 
 main
