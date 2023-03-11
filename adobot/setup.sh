@@ -23,10 +23,10 @@ installDependencies() {
   sudo apt-get install -yqq nodejs
   echo "🎉 Installed Node.js and NPM"
 
-  sudo npm i -g pm2
+  sudo npm i -g pm2 node-gyp
   echo "🎉 Installed pm2"
 
-  sudo apt-get install libtool-bin
+  sudo apt-get install -yqq libtool build-essential autoconf automake g++
 
   echo "✅ Done installing"
 }
@@ -52,6 +52,10 @@ setupEnv() {
       echo "Token cannot be empty."
     fi
   done
+
+  # get pm2 to run on startup
+  sudo env PATH="$PATH:/usr/bin" "$(which pm2)" startup systemd -u "$USER" --hp /home/"$USER"
+  echo "🎉 Set pm2 to run when the server restarts"
   
   echo "✅ Done."
 }
