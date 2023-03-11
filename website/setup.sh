@@ -8,9 +8,9 @@ UPDATE_SCRIPTS_DIR="$INSTALL_DIR/update_scripts"
 RESOURCE_DIR="$INSTALL_DIR/resources"
 
 WEBSITE_REPO_NAME="frankpoon"
-WEBSITE_REPO_URL="git@github.com:frankgpoon/$WEBSITE_REPO_NAME.git"
+WEBSITE_REPO_URL="https://github.com/frankgpoon/$WEBSITE_REPO_NAME.git"
 FSB_REPO_NAME="fsb"
-FSB_REPO_URL="git@github.com:frankgpoon/$FSB_REPO_NAME.git"
+FSB_REPO_URL="https://github.com/frankgpoon/$FSB_REPO_NAME.git"
 
 main() {
   installDependencies
