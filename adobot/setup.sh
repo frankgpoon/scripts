@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAMESPACE="adobot"
-REPO_URL="git@github.com:frankgpoon/$NAMESPACE.git"
+REPO_URL="https://github.com/frankgpoon/$NAMESPACE.git"
 
 INSTALL_DIR="/home/$USER/.frankpoon"
 REPO_DIR="$INSTALL_DIR/repos"
@@ -36,11 +36,11 @@ setupEnv() {
 
   mkdir "$RESOURCE_DIR/$NAMESPACE"
 
-  git clone "$REPO_URL" "$REPO_DIR/$NAMESPACE"
+  git clone -q "$REPO_URL" "$REPO_DIR/$NAMESPACE"
   echo "🎉 Pulled Adobot repo"
 
   source_dir="$(dirname "$0")/resources"
-  cp "$source_dir/update.sh" "$UPDATE_SCRIPTS_DIR/$REPO_NAME.sh"
+  cp "$source_dir/update.sh" "$UPDATE_SCRIPTS_DIR/$NAMESPACE.sh"
 
   while true; do
     echo "Paste the Adobot discord token here"
