@@ -19,12 +19,14 @@ installDependencies() {
 
   # Setup Node LTS
   NODE_LTS_PPA="https://deb.nodesource.com/setup_lts.x"
-  curl -sL $NODE_LTS_PPA | bash - > /dev/null 
-  apt-get install -yqq nodejs npm
+  curl -sL $NODE_LTS_PPA | sudo bash - > /dev/null 
+  sudo apt-get install -yqq nodejs
   echo "🎉 Installed Node.js and NPM"
 
   sudo npm i -g pm2
   echo "🎉 Installed pm2"
+
+  sudo apt-get install libtool-bin
 
   echo "✅ Done installing"
 }
@@ -40,7 +42,7 @@ setupEnv() {
   source_dir="$(dirname "$0")/resources"
   cp "$source_dir/update.sh" "$UPDATE_SCRIPTS_DIR/$REPO_NAME.sh"
 
-  while 0; do
+  while true; do
     echo "Paste the Adobot discord token here"
     read -r discord_token
     if [[ -n $discord_token ]]; then
@@ -55,9 +57,9 @@ setupEnv() {
 }
 
 run() {
-  envvars="ADOBOT_DISCORD_TOKEN=$(cat "$RESOURCE_DIR/$NAMESPACE/discord_token") ADOBOT_DEBUG_LEVEL=info"
+  envvars="ADOBOT_DISCORD_TOKEN=$(cat "$RESOURCE_DIR/$NAMESPACE/discord_token") ADOBOT_ENV=production"
 
-  pm2 start --name "$NAMESPACE" "$envvars npm start"  -- prefix "$REPO_DIR/$NAMESPACE"
+  pm2 start --name "$NAMESPACE" "$envvars npm start --prefix $REPO_DIR/$NAMESPACE"
 }
 
 main
