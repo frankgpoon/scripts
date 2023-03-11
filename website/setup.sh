@@ -44,6 +44,7 @@ setupEnv() {
 setupStaticFiles() {
   echo "Setting up static files"
   webroot_dir="$RESOURCE_DIR/$NAMESPACE/webroot"
+  mkdir "$webroot_dir"
 
   git clone $WEBSITE_REPO_URL "$REPO_DIR/$WEBSITE_REPO_NAME"
   git clone $FSB_REPO_URL "$REPO_DIR/$FSB_REPO_NAME"
@@ -63,7 +64,7 @@ setupStaticFiles() {
 
 runCaddy() {
   sudo setcap CAP_NET_BIND_SERVICE=+eip "$(which caddy)"
-  caddy start --config "$CONFIG_DIR/Caddyfile"
+  caddy start --config "$RESOURCE_DIR/$NAMESPACE/Caddyfile"
 }
 
 main
