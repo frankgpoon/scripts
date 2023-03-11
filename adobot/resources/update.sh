@@ -1,7 +1,8 @@
 #!/bin/bash
 
 NAMESPACE="adobot"
-REPO_DIR="/home/$USER/repos"
+INSTALL_DIR="/home/$USER/.frankpoon"
+REPO_DIR="$INSTALL_DIR/repos"
 
 main() {
   git -C "$REPO_DIR/$NAMESPACE" pull
