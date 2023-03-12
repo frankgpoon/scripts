@@ -15,7 +15,7 @@ main() {
 installDependencies() {
   echo "Installing dependencies..."
 
-  sudo apt-get install -y openjdk-17-jdk
+  sudo apt-get install -yqq openjdk-17-jdk
   echo "🎉 Installed Java"
 
   echo "✅ Done installing"
