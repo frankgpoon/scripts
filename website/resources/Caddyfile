@@ -1,5 +1,5 @@
 localhost:2015 {
-	respond {
+	respond 200 {
 		body "Caddy is up!
 		"
 		close
