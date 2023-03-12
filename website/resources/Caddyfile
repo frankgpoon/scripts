@@ -1,0 +1,24 @@
+localhost:2015 {
+	respond 200 {
+		body "Caddy is up!
+		"
+		close
+	}
+}
+
+frankpoon.com {
+	encode zstd gzip
+	root * /home/frank/.frankpoon/resources/website/webroot
+	file_server
+	@404 {
+		expression {http.error.status_code} == 404
+	}
+	handle_errors {
+		rewrite @404 /404.html
+		file_server
+	}
+}
+
+www.frankpoon.com {
+	redir https://frankpoon.com{uri}
+}
