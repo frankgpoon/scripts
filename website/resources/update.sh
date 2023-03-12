@@ -1,7 +1,8 @@
 #!/bin/bash
 
-NAMESPACE="website"
-REPO_DIR="/home/$USER/repos"
+NAMESPACE="adobot"
+INSTALL_DIR="/home/$USER/.frankpoon"
+REPO_DIR="$INSTALL_DIR/repos"
 RESOURCE_DIR="$INSTALL_DIR/resources"
 
 WEBSITE_REPO_NAME="frankpoon"
