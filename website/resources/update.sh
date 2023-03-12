@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAMESPACE="adobot"
+NAMESPACE="website"
 INSTALL_DIR="/home/$USER/.frankpoon"
 REPO_DIR="$INSTALL_DIR/repos"
 RESOURCE_DIR="$INSTALL_DIR/resources"
