@@ -81,8 +81,9 @@ run() {
     if [[ -n $memory_size ]]; then
       {
         echo "#!/bin/bash"
-        echo "java -Xmx$memory_size -Xms$memory_size -jar paper.jar --nogui"
+        echo "java -Xmx$memory_size -Xms$memory_size -jar $RESOURCE_DIR/$NAMESPACE/paper.jar --nogui"
       } > "$RESOURCE_DIR/$NAMESPACE/start.sh"
+      chmod +x "$RESOURCE_DIR/$NAMESPACE/start.sh"
       break
     else  
       echo "Memory value cannot be empty."
