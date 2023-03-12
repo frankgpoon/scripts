@@ -26,7 +26,10 @@ installDependencies() {
   curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
   curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
   sudo apt-get -qq update
-  sudo apt-get install -yqq caddy
+  sudo apt-get install -yqq caddy libnss3-tools
+
+  # So we can renew the cert when needed
+  sudo adduser caddy sudo
 
   echo "✅ Done installing"
 }
@@ -56,8 +59,8 @@ setupStaticFiles() {
   ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/resume/frank_poon_resume.pdf" "$webroot_dir/resume.pdf"
 
   mkdir "$webroot_dir/$FSB_REPO_NAME"
-  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/fsb.html" "$webroot_dir/fsb.html"
-  ln -s "$REPO_DIR/$FSB_REPO_NAME/resources/privacypolicy.pdf" "$webroot_dir/privacypolicy.pdf"
+  ln -s "$REPO_DIR/$WEBSITE_REPO_NAME/www/fsb.html" "$webroot_dir/$FSB_REPO_NAME/index.html"
+  ln -s "$REPO_DIR/$FSB_REPO_NAME/resources/privacypolicy.pdf" "$webroot_dir/$FSB_REPO_NAME/privacypolicy.pdf"
   echo "🎉 Finished creating symlinks"
   echo "✅ Finished loading static files"
 }
@@ -65,6 +68,7 @@ setupStaticFiles() {
 runCaddy() {
   sudo setcap CAP_NET_BIND_SERVICE=+eip "$(which caddy)"
   caddy start --config "$RESOURCE_DIR/$NAMESPACE/Caddyfile"
+  caddy trust --config "$RESOURCE_DIR/$NAMESPACE/Caddyfile"
 }
 
 main
