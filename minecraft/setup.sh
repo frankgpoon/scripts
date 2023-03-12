@@ -95,7 +95,10 @@ run() {
     fi
   done
 
-  bash "$RESOURCE_DIR/$NAMESPACE/start.sh"
+  source_dir="$(dirname "$0")/resources"
+  sudo cp "$source_dir/paper.service" /etc/systemd/system/
+  sudo systemd enable paper
+  sudo systemd start paper
 }
 
 main
