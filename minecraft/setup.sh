@@ -9,19 +9,13 @@ RESOURCE_DIR="$INSTALL_DIR/resources"
 main() {
   installDependencies
   setupEnv
-  setupStartup
   run
 }
 
 installDependencies() {
   echo "Installing dependencies..."
 
-  sudo apt-get install software-properties-common ca-certificates apt-transport-https curl
-
-  curl https://apt.corretto.aws/corretto.key | sudo apt-key add -
-  sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
-  sudo apt-get update
-  sudo apt-get install -y java-17-amazon-corretto-jdk
+  sudo apt-get install -y openjdk-17-jdk
   echo "🎉 Installed Java"
 
   echo "✅ Done installing"
@@ -96,9 +90,9 @@ run() {
   done
 
   source_dir="$(dirname "$0")/resources"
-  sudo cp "$source_dir/paper.service" /etc/systemd/system/
-  sudo systemctl enable paper
-  sudo systemctl start paper
+  sudo cp "$source_dir/minecraft.service" /etc/systemd/system/
+  sudo systemctl enable minecraft
+  sudo systemctl start minecraft
 }
 
 main
