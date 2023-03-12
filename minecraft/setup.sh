@@ -46,8 +46,8 @@ setupEnv() {
   source_dir="$(dirname "$0")/resources"
   cp "$source_dir/update.sh" "$UPDATE_SCRIPTS_DIR/$NAMESPACE.sh"
 
-  cp "$source_dir/banned_ips.json" "$RESOURCE_DIR/$NAMESPACE/"
-  cp "$source_dir/banned_players.json" "$RESOURCE_DIR/$NAMESPACE/"
+  cp "$source_dir/banned-ips.json" "$RESOURCE_DIR/$NAMESPACE/"
+  cp "$source_dir/banned-players.json" "$RESOURCE_DIR/$NAMESPACE/"
   cp "$source_dir/eula.txt" "$RESOURCE_DIR/$NAMESPACE/"
   cp "$source_dir/ops.json" "$RESOURCE_DIR/$NAMESPACE/"
   cp "$source_dir/server.properties" "$RESOURCE_DIR/$NAMESPACE/"
@@ -97,8 +97,8 @@ run() {
 
   source_dir="$(dirname "$0")/resources"
   sudo cp "$source_dir/paper.service" /etc/systemd/system/
-  sudo systemd enable paper
-  sudo systemd start paper
+  sudo systemctl enable paper
+  sudo systemctl start paper
 }
 
 main
