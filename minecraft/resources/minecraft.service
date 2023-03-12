@@ -1,10 +1,10 @@
 [Unit]
-Description=Paper Minecraft Server
+Description==Minecraft Server
 
 [Service]
 Type=simple
 WorkingDirectory=/home/frank/.frankpoon/resources/minecraft/
-ExecStart=start.sh
+ExecStart=/home/frank/.frankpoon/resources/minecraft/start.sh
 User=frank
 Restart=on-failure
 
