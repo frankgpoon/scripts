@@ -1,7 +1,7 @@
 #!/bin/bash
 
 main() {
-  echo "Welcome to Frank's ssytem bootstrap script!"
+  echo "Welcome to Frank's system bootstrap script!"
   echo "This script should be ran as root."
 
   installDependencies
@@ -33,9 +33,9 @@ setupUserAccount() {
     fi
   done
 
-  adduser "$username" sudo
+  echo "$username ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/dont-prompt-$username-for-sudo-password"
 
-  echo "🎉 Added sudo privilege for $username"
+  echo "🎉 Added sudo privilege for $username with NOPASSWD bypass"
   
   source_dir=$(dirname "$(dirname "$(realpath "$0")")")
   dest_dir="/home/$username/"
