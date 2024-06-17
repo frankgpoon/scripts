@@ -1,0 +1,12 @@
+[Unit]
+Description==Minecraft Server
+
+[Service]
+Type=simple
+WorkingDirectory=/home/frank/.frankpoon/resources/minecraft/
+ExecStart=/home/frank/.frankpoon/resources/minecraft/start.sh
+User=frank
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
